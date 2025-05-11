@@ -3,7 +3,7 @@ import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
 import { emitter }  from "./events/index.js";
-import { logger } from "./config/logger.js";
+import { logger , requestLogger} from "./config/logger.js";
 import { Assistant } from './services/openaiService.js';
 import {sequelize} from './config/db.js';
 import { HOST, PORT_SERVER, DB_FORCE, ENVIROMENT } from "./config/server.js";
@@ -12,6 +12,12 @@ import {Audio} from './models/audio.js';
 import './listeners/message.js'
 import './listeners/audio.js'
 import audioRoutes from './route/audio.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Obtener __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const server = http.createServer(app);
@@ -27,6 +33,12 @@ app.use(cors({
   origin: "*", 
   methods: ["GET", "POST"]
 }));
+
+app.get('/favicon.ico',(req, res)=>{
+  res.sendFile(path.join(__dirname, 'public/favicon.png'));
+})
+
+app.use(requestLogger);
 
 app.use('/audio',audioRoutes);
 
