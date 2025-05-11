@@ -1,0 +1,24 @@
+# Ignora archivos temporales de sistema operativo
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Ignora carpetas de desarrollo que no se necesitan en producción
+node_modules
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+
+# Git
+.git
+.gitignore
+
+# Archivos de configuración que no quieres copiar en la imagen
+docker-compose.yml
+.dockerignore
+node_modules/
+*.sqlite
+img/
+README.md

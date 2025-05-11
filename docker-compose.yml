@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "${PORT_DOCKER}:${PORT_SERVER}"
+    command: npm  start
